@@ -9,8 +9,8 @@ import sys
 load_dotenv()
 
 # Include Models to system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__),  'app', 'models')))
-from flight_mission import FlightMission
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__),  'src', 'app')))
+from app.models.flight_mission import FlightMission
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

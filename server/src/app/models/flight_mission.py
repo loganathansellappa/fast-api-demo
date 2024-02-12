@@ -1,6 +1,6 @@
 from enum import Enum
 from sqlalchemy import Column, Integer, DateTime, String, func
-from app.db.connection import Base
+from src.app.db.connection import Base
 class TimestampMixin(object):
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
