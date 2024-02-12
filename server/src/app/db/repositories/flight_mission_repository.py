@@ -1,8 +1,8 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from src.app.models.flight_mission import FlightMission, MissionState
-from src.app.services import schemas
+from app.models.flight_mission import FlightMission, MissionState
+from app.services import schemas
 
 
 # CRUD operations for FlightMission

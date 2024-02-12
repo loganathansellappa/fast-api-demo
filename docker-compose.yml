@@ -4,8 +4,6 @@ services:
     mysqldb:
         image:  mysql:latest
         container_name: mysqldb
-        hostname: mysqldb
-        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: root_password
             MYSQL_DATABASE: mission_control
@@ -17,15 +15,23 @@ services:
             - mysql_data:/var/lib/mysql
         networks:
             - back-tier
+
     server:
-        build: server/
-        command: bash -c "sleep 20s; alembic upgrade head; uvicorn src.main:app --host 0.0.0.0 --port 9000 --reload"
+        container_name: server
+        build:
+            context: server/
+        command: >
+            bash -c "sleep 20s &&
+            cd src && 
+            alembic upgrade head &&
+            pytest . &&
+            uvicorn main:app --host 0.0.0.0 --port 9000 --reload"
         volumes:
             - ./server/src:/server/src
         ports:
-            - 9000:9000
+            - "9000:9000"
         expose:
-            - 9000
+            - "9000"
         networks:
             - back-tier
         depends_on:
@@ -33,8 +39,26 @@ services:
         environment:
             DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/mission_control
 
+    #    server:
+#        build: server/
+#        command: bash -c "sleep 20s; alembic upgrade head; DATABASE_URL=mysql+pymysql://root:root_password@mysqldb:3306/test_mission_control pytest; uvicorn src.main:app --host 0.0.0.0 --port 9000 --reload"
+#        volumes:
+#            - ./server/src:/server/src
+#        ports:
+#            - 9000:9000
+#        expose:
+#            - 9000
+#        networks:
+#            - back-tier
+#        depends_on:
+#            - mysqldb
+#        environment:
+#            DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/mission_control
+#            TEST_DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/test_mission_control
+
     client:
         build: client/
+        container_name: client
         volumes:
             - ./client/src:/client/src
             - ./client/vite.config.ts:/client/vite.config.ts
@@ -42,10 +66,11 @@ services:
             - 3000
         networks:
             - back-tier
-        links:
+        depends_on:
             - server
 
     proxy:
+        container_name: proxy
         image: nginx:stable-alpine
         ports:
             - 8080:8080
@@ -54,9 +79,6 @@ services:
         networks:
             - front-tier
             - back-tier
-        links:
-            - client
-            - server
         depends_on:
             - mysqldb
             - client

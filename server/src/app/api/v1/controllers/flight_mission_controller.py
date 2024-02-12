@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from sqlalchemy.orm import Session
-from src.app.db.repositories import FlightMissionRepository
-from src.app.db.connection import get_db
-from src.app.services import schemas
-
+from app.db.repositories import FlightMissionRepository
+from app.db.connection import get_db
+from app.services import schemas
+from sqlalchemy import exc
 router = APIRouter(
     prefix="/api/v1",  # Prepend "api/v1" to all routes
     tags=["flight_missions"],  # Optional: Add tags for documentation
@@ -15,7 +15,22 @@ repository = FlightMissionRepository()
 # Endpoint to create a flight mission
 @router.post("/flight_missions/", response_model=schemas.FlightMission)
 def create_flight_mission(flight_mission: schemas.FlightMissionCreate, db: Session = Depends(get_db)):
-    return repository.create_flight_mission(db=db, flight_mission=flight_mission)
+    try:
+        try:
+            flight_mission = schemas.FlightMissionCreate(**flight_mission.dict())
+        except ValidationError as e:
+            raise HTTPException(status_code=422, detail="Input data validation failed.")
+        #
+        # # Perform additional validation if needed
+        # if not is_valid_flight_mission(flight_mission):
+        #     raise HTTPException(status_code=400, detail="Invalid flight mission data.")
+
+        # Proceed with creating the flight mission
+        return repository.create_flight_mission(db=db, flight_mission=flight_mission)
+    except exc.IntegrityError as e:
+        raise HTTPException(status_code=400, detail="An integrity constraint violation occurred.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
 
 # Endpoint to get a flight mission by ID
 @router.get("/flight_missions/{mission_id}", response_model=schemas.FlightMission)

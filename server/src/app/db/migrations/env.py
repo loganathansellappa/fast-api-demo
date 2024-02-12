@@ -1,15 +1,13 @@
 from logging.config import fileConfig
-from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
 import os
 import sys
-load_dotenv()
 
 # Include Models to system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__),  'src', 'app')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), 'app')))
 from app.models.flight_mission import FlightMission
 
 # this is the Alembic Config object, which provides

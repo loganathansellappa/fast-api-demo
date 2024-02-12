@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from src.app.models.flight_mission import MissionState
+from app.models.flight_mission import MissionState
 from typing import Optional as OptionalType
 
 class FlightMissionBase(BaseModel):

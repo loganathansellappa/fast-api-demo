@@ -1,6 +1,6 @@
 from enum import Enum
 from sqlalchemy import Column, Integer, DateTime, String, func
-from src.app.db.connection import Base
+from app.db.connection import Base
 class TimestampMixin(object):
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
@@ -12,7 +12,7 @@ class MissionState(str, Enum):
 
 class FlightMission(Base, TimestampMixin):
     __tablename__ = "flight_missions"
-
+    __table_args__ = {'extend_existing': True}  #
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     title = Column(String(255), nullable=False, unique=True, index=True)
     description = Column(String(255), nullable=False)

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.openapi.docs import get_swagger_ui_html
 load_dotenv(".env.dev")
-from .app.api.v1.controllers import flight_mission_controller
+from app.api.v1.controllers import flight_mission_controller
 api_router = APIRouter(prefix="/api")
 
 class FlightMission(BaseModel):
