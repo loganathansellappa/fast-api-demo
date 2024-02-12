@@ -39,23 +39,6 @@ services:
         environment:
             DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/mission_control
 
-    #    server:
-#        build: server/
-#        command: bash -c "sleep 20s; alembic upgrade head; DATABASE_URL=mysql+pymysql://root:root_password@mysqldb:3306/test_mission_control pytest; uvicorn src.main:app --host 0.0.0.0 --port 9000 --reload"
-#        volumes:
-#            - ./server/src:/server/src
-#        ports:
-#            - 9000:9000
-#        expose:
-#            - 9000
-#        networks:
-#            - back-tier
-#        depends_on:
-#            - mysqldb
-#        environment:
-#            DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/mission_control
-#            TEST_DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/test_mission_control
-
     client:
         build: client/
         container_name: client

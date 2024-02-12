@@ -40,26 +40,3 @@ class FlightMissionRepository:
             raise HTTPException(status_code=404, detail="Mission not found")
         db.delete(db_mission)
         db.commit()
-
-# Usage example
-# repo = FlightMissionRepository()
-#
-# # Create a flight mission
-# db = SessionLocal()
-# created_mission = repo.create_flight_mission(db, title="Mission 1", description="Description 1", mission_state=MissionState.pre_flight)
-# print("Created mission:", created_mission)
-#
-# # Update a flight mission
-# updated_mission = repo.update_flight_mission(db, mission_id=created_mission.id, title="Updated Title", description="Updated Description", mission_state=MissionState.in_flight)
-# print("Updated mission:", updated_mission)
-#
-# # Get a flight mission by ID
-# fetched_mission = repo.get_flight_mission(db, mission_id=created_mission.id)
-# print("Fetched mission:", fetched_mission)
-#
-# # Delete a flight mission
-# repo.delete_flight_mission(db, mission_id=created_mission.id)
-# print("Deleted mission")
-#
-# # Close the database session
-# db.close()

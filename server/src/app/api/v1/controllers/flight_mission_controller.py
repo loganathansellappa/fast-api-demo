@@ -5,6 +5,7 @@ from app.db.repositories import FlightMissionRepository
 from app.db.connection import get_db
 from app.services import schemas
 from sqlalchemy import exc
+
 router = APIRouter(
     prefix="/api/v1",  # Prepend "api/v1" to all routes
     tags=["flight_missions"],  # Optional: Add tags for documentation
@@ -16,19 +17,9 @@ repository = FlightMissionRepository()
 @router.post("/flight_missions/", response_model=schemas.FlightMission)
 def create_flight_mission(flight_mission: schemas.FlightMissionCreate, db: Session = Depends(get_db)):
     try:
-        try:
-            flight_mission = schemas.FlightMissionCreate(**flight_mission.dict())
-        except ValidationError as e:
-            raise HTTPException(status_code=422, detail="Input data validation failed.")
-        #
-        # # Perform additional validation if needed
-        # if not is_valid_flight_mission(flight_mission):
-        #     raise HTTPException(status_code=400, detail="Invalid flight mission data.")
-
-        # Proceed with creating the flight mission
         return repository.create_flight_mission(db=db, flight_mission=flight_mission)
     except exc.IntegrityError as e:
-        raise HTTPException(status_code=400, detail="An integrity constraint violation occurred.")
+        raise HTTPException(status_code=400, detail=f"An integrity constraint violation occurred. Check title or missionState")
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
 
@@ -43,25 +34,27 @@ def read_flight_mission(mission_id: int, db: Session = Depends(get_db)):
 # Endpoint to update a flight mission by ID
 @router.put("/flight_missions/{mission_id}", response_model=schemas.FlightMission)
 def update_flight_mission(mission_id: int, flight_mission: schemas.FlightMissionUpdate, db: Session = Depends(get_db)):
-    db_mission = repository.get_flight_mission(db=db, mission_id=mission_id)
-    if db_mission is None:
-        raise HTTPException(status_code=404, detail="Flight mission not found")
-    # return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=flight_mission)
-    # Create an empty dictionary to store update data
-    update_data = {}
+    try:
+        db_mission = repository.get_flight_mission(db=db, mission_id=mission_id)
+        if db_mission is None:
+            raise HTTPException(status_code=404, detail="Flight mission not found")
+        # return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=flight_mission)
+        # Create an empty dictionary to store update data
+        update_data = {}
 
-    # Iterate over fields in the flight_mission update model
-    for field in flight_mission.dict(exclude_unset=True):
-        # Get the value from the flight_mission update model
-        value = getattr(flight_mission, field)
+        # Iterate over fields in the flight_mission update model
+        for field in flight_mission.dict(exclude_unset=True):
+            # Get the value from the flight_mission update model
+            value = getattr(flight_mission, field)
 
-        # If the value is not None, use it; otherwise, preserve the existing value
-        update_data[field] = value if value is not None else getattr(db_mission, field)
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    print(update_data)
-    # Update the flight mission with the new data
-    return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=update_data)
-
+            # If the value is not None, use it; otherwise, preserve the existing value
+            update_data[field] = value if value is not None else getattr(db_mission, field)
+        # Update the flight mission with the new data
+        return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=update_data)
+    except exc.IntegrityError as e:
+        raise HTTPException(status_code=400, detail=f"An integrity constraint violation occurred. Error message: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
 
 # Endpoint to delete a flight mission by ID
 @router.delete("/flight_missions/{mission_id}", response_model=schemas.FlightMission)
