@@ -1,16 +1,15 @@
-import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import EnvironmentPlugin from "vite-plugin-environment";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react()],
+	plugins: [react(), EnvironmentPlugin(["DATA_URL"])],
 	server: {
-		watch: {
-			usePolling: true,
+		hmr: {
+			host: "localhost",
 		},
-		host: true, // needed for the Docker Container port mapping to work
-		strictPort: true,
+		open: "/",
 		port: 3000,
 	},
 });
-

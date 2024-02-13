@@ -1,21 +1,28 @@
-import { useEffect, useState } from "react";
+import {useRef} from "react";
+import {serverData} from "./utils/HelperUtils.ts";
+import {createMissionControlApiClient} from "./services/missionControlClient.ts";
+import {AxiosClientProvider} from "./context/AxiosClientContext.ts";
+import {QueryClientProvider} from "react-query";
+import {MissionControlList} from "./components/MissionControlList/MissionControlList.tsx";
 
 export const App = () => {
-	const [apiStatus, setApiStatus] = useState<string | null>(null);
-
-	useEffect(() => {
-		fetch("/api/health")
-			.then((response) => response.json())
-			.then((data) => {
-				setApiStatus(data.status);
-			});
-	}, []);
+	const {
+		current: {
+			axiosClientService,
+			queryClient,
+		},
+	} = useRef(
+		createMissionControlApiClient({
+			endpoint: serverData().baseUrl,
+		}),
+	)
 
 	return (
-		<div>
-			<p>Volocopter Code Challenge</p>
-			<p>API Status: {apiStatus}</p>
-		</div>
+		<AxiosClientProvider value={axiosClientService}>
+			<QueryClientProvider client={queryClient}>
+				<MissionControlList />
+			</QueryClientProvider>
+		</AxiosClientProvider>
 	);
 };
 
