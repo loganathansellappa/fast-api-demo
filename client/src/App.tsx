@@ -3,7 +3,8 @@ import {serverData} from "./utils/HelperUtils.ts";
 import {createMissionControlApiClient} from "./services/missionControlClient.ts";
 import {AxiosClientProvider} from "./context/AxiosClientContext.ts";
 import {QueryClientProvider} from "react-query";
-import {MissionControlList} from "./components/MissionControlList/MissionControlList.tsx";
+import { Header } from './components/Header/Header.tsx';
+import { MissionControlList } from './components/MissionControlList/MissionControlList.tsx';
 
 export const App = () => {
 	const {
@@ -20,7 +21,10 @@ export const App = () => {
 	return (
 		<AxiosClientProvider value={axiosClientService}>
 			<QueryClientProvider client={queryClient}>
-				<MissionControlList />
+				<div className="w-full flex flex-col h-screen bg-gradient-to-b from-gray-100 to-gray-300 p-10">
+					<Header />
+					<MissionControlList />
+				</div>
 			</QueryClientProvider>
 		</AxiosClientProvider>
 	);

@@ -6,3 +6,9 @@ export const serverData = () => {
         baseUrl: process.env.DATA_URL,
     } as ServerConfig;
 };
+
+export enum MissionState {
+    PreFlight = 'Pre-flight',
+    Flight = 'In-Flight',
+    PostFlight = 'Post-Flight'
+}

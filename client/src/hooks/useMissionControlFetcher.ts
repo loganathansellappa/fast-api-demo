@@ -9,12 +9,27 @@ export function useMissionControlFetcher() {
 
     const { isLoading, isError, error, data, isRefetching, refetch } = useQuery({
         queryKey: missionControlKeys.all(),
-        queryFn: () => axiosClientService.axiosClient.request({ url: 'flight_missions' }),
-        staleTime: cacheTimes.twoMinutes,
+        queryFn: () => axiosClientService.axiosClient.request({ url: 'flight_missions?skip=0&limit=100' }),
     })
 
     const memoedData = useMemo(() => {
-        return data ? data : []
+        console.log("data", data)
+        if (data && data.data) {
+            const groupedData: { [key: string]: any[] } =  data.data.reduce((acc, obj) => {
+                const key = obj.mission_state;
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+                acc[key].push(obj);
+                return acc;
+            }, {})
+            console.log("groupedData", groupedData)
+            return groupedData
+
+        }
+
+        return {}
+
     }, [data])
 
     return {
