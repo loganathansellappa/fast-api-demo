@@ -1,0 +1,29 @@
+.orange-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; /* Adjusted to left instead of right */
+  height: 100%;
+  width: 5px;
+  background-color: #dc6e2b;
+}
+
+.blue-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 5px;
+  background-color: #0e80de;
+}
+
+.green-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; /* Adjusted to left instead of right */
+  height: 100%; /* Height set to 100% to cover the entire height of the container */
+  width: 5px; // Adjust the width of the vertical border
+  background-color: #35a937;
+}

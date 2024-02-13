@@ -12,3 +12,10 @@ export enum MissionState {
     Flight = 'In-Flight',
     PostFlight = 'Post-Flight'
 }
+
+
+export enum MutationType {
+    PUT = 'PUT',
+    POST = 'POST',
+    DELETE = 'DELETE'
+}

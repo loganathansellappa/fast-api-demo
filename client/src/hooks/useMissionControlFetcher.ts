@@ -2,20 +2,23 @@ import {useAxiosClient} from "../context/AxiosClientContext.ts";
 import {useMemo} from "react";
 import {missionControlKeys} from "../services/queryKeyFactory.ts";
 import {useQuery} from "react-query";
-import {cacheTimes} from "../services/cacheTimes.ts";
+import { MissionControlSchema, NormalizedMissionControlSchema } from '../@types/zodSchema.ts';
 
+type TransformedMissionControlData = {
+    [key: string]: MissionControlSchema[]
+}
 export function useMissionControlFetcher() {
     const axiosClientService = useAxiosClient()
 
-    const { isLoading, isError, error, data, isRefetching, refetch } = useQuery({
+    const { isLoading, isError, error, data } = useQuery({
         queryKey: missionControlKeys.all(),
         queryFn: () => axiosClientService.axiosClient.request({ url: 'flight_missions?skip=0&limit=100' }),
     })
 
     const memoedData = useMemo(() => {
-        console.log("data", data)
         if (data && data.data) {
-            const groupedData: { [key: string]: any[] } =  data.data.reduce((acc, obj) => {
+            const validData = NormalizedMissionControlSchema.parse(data.data);
+            const groupedData: { [key: string]: MissionControlSchema[] } =  validData.reduce((acc: TransformedMissionControlData, obj: MissionControlSchema) => {
                 const key = obj.mission_state;
                 if (!acc[key]) {
                     acc[key] = [];
@@ -23,9 +26,7 @@ export function useMissionControlFetcher() {
                 acc[key].push(obj);
                 return acc;
             }, {})
-            console.log("groupedData", groupedData)
             return groupedData
-
         }
 
         return {}
@@ -37,7 +38,5 @@ export function useMissionControlFetcher() {
         isLoading,
         isError,
         error,
-        isRefetching,
-        refetch,
     }
 }
