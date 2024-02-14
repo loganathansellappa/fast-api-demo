@@ -9,6 +9,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Error } from './components/Error/Error.tsx';
+import { DialogProvider } from './components/Dialog/DialogProvider.tsx';
+import { Dialog } from './components/Dialog/Dialog.tsx';
+import { DialogContext } from './context/DialogContext.ts';
 export const App = () => {
 	const {
 		current: {
@@ -26,9 +29,12 @@ export const App = () => {
 			<AxiosClientProvider value={axiosClientService}>
 				<QueryClientProvider client={queryClient}>
 					<div className="w-full flex flex-col h-screen bg-gradient-to-b from-gray-100 to-gray-300 p-10">
+						<DialogProvider>
 						<Header />
 						<MissionControlList />
 						<ToastContainer  position="bottom-center"/>
+							<Dialog />
+						</DialogProvider>
 					</div>
 				</QueryClientProvider>
 			</AxiosClientProvider>

@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export type ServerConfig = {
     baseUrl: string;
 };
@@ -19,3 +21,13 @@ export enum MutationType {
     POST = 'POST',
     DELETE = 'DELETE'
 }
+
+export const showSuccessToast = (message: string, id: string | number = 1) => {
+    toast.dismiss();
+    toast.success(message, { toastId: id, autoClose: 500, style: { background: '#5CDD00', color: "white" } });
+};
+
+export const showErrorToast = (message: string, id: string | number) => {
+    toast.dismiss();
+    toast.error(message, { toastId: id, autoClose: 500 });
+};

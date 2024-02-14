@@ -2,18 +2,8 @@ import { useMissionControlFetcher } from '../../hooks/useMissionControlFetcher.t
 import { MissionControlCardContainer } from '../MissionControlCardContainer/MissionControlCardContainer.tsx';
 import { MissionState } from '../../utils/HelperUtils.ts';
 import { useCallback } from 'react';
-
-export type TMissionControl = {
-  title: string;
-  description: string;
-  mission_state: string;
-  id: number;
-  created_at: string;
-  updated_at: string;
-}
 export const MissionControlList = () => {
   const { data, isLoading } = useMissionControlFetcher();
-
   const containerData = useCallback(() => {
     return Object.values(MissionState).map(state => {
       data[state] = data[state] || []
@@ -27,9 +17,12 @@ export const MissionControlList = () => {
   }
 
   return (
-    <div className="flex flex-row gap-1 h-full py-10">
-      {containerData()}
-    </div>
+    <>
+      <div className="flex flex-row gap-1 h-full py-10">
+        {containerData()}
+      </div>
+    </>
+
   );
 };
 

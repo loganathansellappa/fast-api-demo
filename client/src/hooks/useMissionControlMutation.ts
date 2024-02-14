@@ -3,22 +3,41 @@ import { useMutation, useQueryClient } from 'react-query';
 import { missionControlKeys } from '../services/queryKeyFactory.ts';
 import { MissionState, MutationType } from '../utils/HelperUtils.ts';
 
-type MissionControlUpdate = {
-  id: string;
-  missionState: MissionState;
+type MissionControlMutation = {
+  missionState?: MissionState;
   mutationType: MutationType;
+  url: string;
+  description?: string;
+  title?: string;
 };
+
+export type MissionControlInput = {
+  mutationType: MutationType;
+  id?: number;
+  missionState?: MissionState;
+  description?: string;
+  title?: string;
+};
+
 export function useMissionControlUpdate() {
   const axiosClientService = useAxiosClient();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: ({ id, missionState, mutationType }: MissionControlUpdate) =>
-      axiosClientService.axiosClient.request({
-        url: `flight_missions/${id}`,
-        method: mutationType,
-        data: { mission_state: missionState }
-      }),
+    mutationFn: (requestData: MissionControlMutation) => {
+      const { url, mutationType, ...data } = requestData;
+      const requestObject = {
+          url: url,
+          method: mutationType
+      }
+      if (mutationType !== MutationType.DELETE) {
+        requestObject.data = {
+          ...data,
+          mission_state: data?.missionState
+        }
+      }
+      return axiosClientService.axiosClient.request({...requestObject })
+    },
     onSuccess: () => {
       queryClient.cancelQueries({ queryKey: missionControlKeys.all() });
       queryClient.invalidateQueries({ queryKey: missionControlKeys.all() });
@@ -28,8 +47,14 @@ export function useMissionControlUpdate() {
     }
   });
 
-  const mutateMissionControl = (id: string, missionState: MissionState, mutationType: MutationType) => {
-    mutation.mutate({ id, missionState, mutationType });
+  const mutateMissionControl = ({ id, missionState = MissionState.PreFlight, mutationType, description, title }: MissionControlInput) => {
+    const url = mutationType === MutationType.POST ? `flight_missions` : `flight_missions/${id}`;
+    if (mutationType === MutationType.DELETE) {
+      mutation.mutate({ mutationType, url });
+    }  else {
+      mutation.mutate({ missionState, mutationType, description, title, url });
+    }
+
   };
 
   return {
