@@ -11,7 +11,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Error } from './components/Error/Error.tsx';
 import { DialogProvider } from './components/Dialog/DialogProvider.tsx';
 import { Dialog } from './components/Dialog/Dialog.tsx';
-import { DialogContext } from './context/DialogContext.ts';
 export const App = () => {
 	const {
 		current: {

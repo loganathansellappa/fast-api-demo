@@ -1,16 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ContextMenu } from "./ContextMenu";
-import { MissionState } from '../../utils/HelperUtils.ts';
+import { MissionState, MutationType, showErrorToast, showSuccessToast } from '../../utils/HelperUtils.ts';
+import { MissionControlInput, useMissionControlUpdate } from '../../hooks/useMissionControlMutation.ts';
 export interface ContextMenuProviderProps {
   children: React.ReactNode;
   options: MissionState[],
-  handleClick: (id: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const ContextMenuProvider: React.FC<ContextMenuProviderProps> = ({
                                                                           children,
                                                                           options,
-                                                                          handleClick
                                                                         }) => {
   const [contextMenu, setContextMenu] = useState<{
     show: boolean;
@@ -23,6 +22,28 @@ export const ContextMenuProvider: React.FC<ContextMenuProviderProps> = ({
     left: 0,
     item: 0,
   });
+  const {  mutate, isError, isSuccess} = useMissionControlUpdate();
+
+
+  const handleClick = useCallback((currentItem: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+    const currentState = target.innerHTML as MissionState;
+    const requestData: MissionControlInput = {
+      id: currentItem as number,
+      missionState: currentState,
+      mutationType: MutationType.PUT,
+    }
+    mutate(requestData);
+  },[mutate])
+
+
+  if(isError) {
+    showErrorToast('Mission Control state update failed', `missionControlStateUpdateFailed$`);
+  }
+
+  if(isSuccess) {
+    showSuccessToast('Mission Control state updated', `missionControlStateUpdateSuccess`);
+  }
 
   const menuOptions = useMemo(() => Object.values(options).map(state => state),[options]);
   const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {

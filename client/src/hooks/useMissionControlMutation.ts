@@ -25,7 +25,7 @@ export function useMissionControlUpdate() {
 
   const mutation = useMutation({
     mutationFn: (requestData: MissionControlMutation) => {
-      const { url, mutationType, ...data } = requestData;
+      const { url, mutationType, missionState, ...data } = requestData;
       const requestObject = {
           url: url,
           method: mutationType
@@ -33,7 +33,7 @@ export function useMissionControlUpdate() {
       if (mutationType !== MutationType.DELETE) {
         requestObject.data = {
           ...data,
-          mission_state: data?.missionState
+          mission_state: missionState
         }
       }
       return axiosClientService.axiosClient.request({...requestObject })
