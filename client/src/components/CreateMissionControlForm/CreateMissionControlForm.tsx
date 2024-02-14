@@ -36,41 +36,41 @@ export const CreateMissionControlForm = ({ onCancel }: CreateMissionControlFormP
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-4">
-        <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">Title:</label>
-        <input
-          {...register('title', { required: 'This is required.' })}
-          type="text"
-          id="title"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-        />
-        <p className="text-red-500">{errors?.title?.message}</p>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-gray-700 font-semibold mb-2">Description:</label>
-        <textarea
-          {...register('description', { required: 'This is required.' })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-          id="description"
-        ></textarea>
-        <p className="text-red-500">{errors?.description?.message}</p>
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">Title:</label>
+          <input
+            {...register('title', { required: 'This is required.' })}
+            type="text"
+            id="title"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+          />
+          <p className="text-red-500">{errors?.title?.message}</p>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="description" className="block text-gray-700 font-semibold mb-2">Description:</label>
+          <textarea
+            {...register('description', { required: 'This is required.' })}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            id="description"
+          ></textarea>
+          <p className="text-red-500">{errors?.description?.message}</p>
 
-      </div>
-      <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="mr-2 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-md focus:outline-none focus:bg-gray-400"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-800 hover:bg-blue-600 text-white font-semibold rounded-md focus:outline-none focus:bg-blue-600"
-        >
-          Create
-        </button>
-      </div>
-    </form>
+        </div>
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="mr-2 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-md focus:outline-none focus:bg-gray-400"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-800 hover:bg-blue-600 text-white font-semibold rounded-md focus:outline-none focus:bg-blue-600"
+          >
+            Create
+          </button>
+        </div>
+      </form>
   );
 };

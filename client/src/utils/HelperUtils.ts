@@ -1,4 +1,6 @@
 import { toast } from 'react-toastify';
+import { ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 export type ServerConfig = {
     baseUrl: string;
@@ -31,3 +33,7 @@ export const showErrorToast = (message: string, id: string | number) => {
     toast.dismiss();
     toast.error(message, { toastId: id, autoClose: 500 });
 };
+
+export const cn = (...inputs: ClassValue[]) => {
+    return twMerge(clsx(inputs))
+}

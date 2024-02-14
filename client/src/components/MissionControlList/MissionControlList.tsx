@@ -12,7 +12,7 @@ export const MissionControlList = () => {
       const options = Object.values(MissionState).filter(title => title !== state);
       return (
         <div className="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll">
-          <ContextMenuProvider options={options} >
+          <ContextMenuProvider options={options} key={`ctxProvider-${state}`}>
             <MissionControlCardContainer key={state} missionControl={data[state]} title={state} />
           </ContextMenuProvider>
         </div>
@@ -26,12 +26,9 @@ export const MissionControlList = () => {
   }
 
   return (
-    <>
       <div className="flex flex-row gap-1 h-full py-10 justify-items-center">
         {containerData()}
       </div>
-    </>
-
   );
 };
 
