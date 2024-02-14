@@ -7,8 +7,8 @@ from app.services import schemas
 from sqlalchemy import exc
 
 router = APIRouter(
-    prefix="/api/v1",  # Prepend "api/v1" to all routes
-    tags=["flight_missions"],  # Optional: Add tags for documentation
+    prefix="/api/v1",
+    tags=["flight_missions"],
 )
 
 repository = FlightMissionRepository()
@@ -38,18 +38,12 @@ def update_flight_mission(mission_id: int, flight_mission: schemas.FlightMission
         db_mission = repository.get_flight_mission(db=db, mission_id=mission_id)
         if db_mission is None:
             raise HTTPException(status_code=404, detail="Flight mission not found")
-        # return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=flight_mission)
-        # Create an empty dictionary to store update data
         update_data = {}
 
-        # Iterate over fields in the flight_mission update model
         for field in flight_mission.dict(exclude_unset=True):
-            # Get the value from the flight_mission update model
             value = getattr(flight_mission, field)
 
-            # If the value is not None, use it; otherwise, preserve the existing value
             update_data[field] = value if value is not None else getattr(db_mission, field)
-        # Update the flight mission with the new data
         return repository.update_flight_mission(db=db, mission_id=mission_id, flight_mission=update_data)
     except exc.IntegrityError as e:
         raise HTTPException(status_code=400, detail=f"An integrity constraint violation occurred. Error message: {e}")
