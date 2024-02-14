@@ -2,11 +2,11 @@ import { MissionControlInput, useMissionControlUpdate } from '../../hooks/useMis
 import { MutationType, showErrorToast, showSuccessToast } from '../../utils/HelperUtils.ts';
 import { useCallback, useId } from 'react';
 
-interface CreateMissionControlFormProps {
+export type DeleteMissionControlProps = {
   onCancel: () => void;
   id: number;
 }
-export const DeleteMissionControl = ({ onCancel, id }: CreateMissionControlFormProps ) => {
+export const DeleteMissionControl = ({ onCancel, id }: DeleteMissionControlProps ) => {
   const {  mutate, isError, isSuccess } = useMissionControlUpdate();
   const uId = useId();
   const onDeleteClick = useCallback(() => {
@@ -37,14 +37,14 @@ export const DeleteMissionControl = ({ onCancel, id }: CreateMissionControlFormP
           <button
             type="button"
             onClick={onCancel}
-            className="mr-2 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-md focus:outline-none focus:bg-gray-400"
+            className="cancel-delete mr-2 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-md focus:outline-none focus:bg-gray-400"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={onDeleteClick}
-            className="px-4 py-2 bg-blue-800 hover:bg-blue-600 text-white font-semibold rounded-md focus:outline-none focus:bg-blue-600"
+            className="mission-delete px-4 py-2 bg-blue-800 hover:bg-blue-600 text-white font-semibold rounded-md focus:outline-none focus:bg-blue-600"
           >
             Delete
           </button>

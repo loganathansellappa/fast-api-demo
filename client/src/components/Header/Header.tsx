@@ -21,7 +21,7 @@ export const Header = () => {
       title: 'Add - Mission',
       content: <CreateMissionControlForm  onCancel={closeDialog} />
     });
-  }, [setDialog]);
+  }, [setDialog, closeDialog]);
 
     return (
       <div className="flex">

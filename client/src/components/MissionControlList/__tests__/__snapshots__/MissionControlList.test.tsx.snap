@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MissionControlList renders MissionControlList component 1`] = `
+<div
+  class="mission-list flex flex-row gap-1 h-full py-10 justify-items-center"
+>
+  <div
+    class="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll"
+  >
+    <div>
+      <div
+        class="bg-gray-100 text-black font-bold mb-12 rounded sticky"
+      >
+        Pre-flight
+      </div>
+      <div
+        class="no-scrollbar overflow-y-scroll "
+      >
+        <div
+          class="relative bg-white shadow-md rounded-md p-4 mb-4 min-w-[40%] border-2 hover:cursor-pointer orange-border"
+          data-item-id="319"
+        >
+          <div
+            class="flex border-b-2 pb-2"
+            data-item-id="319"
+          >
+            <div
+              class="text-lg font-semibold"
+              data-item-id="319"
+            >
+              string
+            </div>
+            <div
+              class="ml-auto"
+              data-item-id="319"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="text-gray-600 mt-4"
+            data-item-id="319"
+          >
+            string
+          </div>
+        </div>
+        <div
+          class="relative bg-white shadow-md rounded-md p-4 mb-4 min-w-[40%] border-2 hover:cursor-pointer orange-border"
+          data-item-id="327"
+        >
+          <div
+            class="flex border-b-2 pb-2"
+            data-item-id="327"
+          >
+            <div
+              class="text-lg font-semibold"
+              data-item-id="327"
+            >
+              new
+            </div>
+            <div
+              class="ml-auto"
+              data-item-id="327"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="text-gray-600 mt-4"
+            data-item-id="327"
+          >
+            ew
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll"
+  >
+    <div>
+      <div
+        class="bg-gray-100 text-black font-bold mb-12 rounded sticky"
+      >
+        In-Flight
+      </div>
+      <div
+        class="no-scrollbar overflow-y-scroll "
+      >
+        <div
+          class="relative bg-white shadow-md rounded-md p-4 mb-4 min-w-[40%] border-2 hover:cursor-pointer blue-border"
+          data-item-id="328"
+        >
+          <div
+            class="flex border-b-2 pb-2"
+            data-item-id="328"
+          >
+            <div
+              class="text-lg font-semibold"
+              data-item-id="328"
+            >
+              dsa
+            </div>
+            <div
+              class="ml-auto"
+              data-item-id="328"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="text-gray-600 mt-4"
+            data-item-id="328"
+          >
+            dsa
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll"
+  >
+    <div>
+      <div
+        class="bg-gray-100 text-black font-bold mb-12 rounded sticky"
+      >
+        Post-Flight
+      </div>
+      <div
+        class="no-scrollbar overflow-y-scroll "
+      />
+    </div>
+  </div>
+</div>
+`;

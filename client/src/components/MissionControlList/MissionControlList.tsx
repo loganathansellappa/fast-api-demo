@@ -3,6 +3,7 @@ import { MissionControlCardContainer } from '../MissionControlCardContainer/Miss
 import { MissionState } from '../../utils/HelperUtils.ts';
 import { useCallback } from 'react';
 import { ContextMenuProvider } from '../ContextMenu/ContextMenuProvider.tsx';
+import { Loader } from '../Loader/Loader.tsx';
 export const MissionControlList = () => {
   const { data, isLoading } = useMissionControlFetcher();
 
@@ -11,7 +12,7 @@ export const MissionControlList = () => {
       data[state] = data[state] || []
       const options = Object.values(MissionState).filter(title => title !== state);
       return (
-        <div className="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll">
+        <div key={`ctx-container-${state}`} className="shadow-md flex-col w-[40%] m-10 bg-gray-100 p-8 max-2xl no-scrollbar overflow-y-scroll">
           <ContextMenuProvider options={options} key={`ctxProvider-${state}`}>
             <MissionControlCardContainer key={state} missionControl={data[state]} title={state} />
           </ContextMenuProvider>
@@ -22,11 +23,11 @@ export const MissionControlList = () => {
 
 
   if (!data || isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
-      <div className="flex flex-row gap-1 h-full py-10 justify-items-center">
+      <div className="mission-list flex flex-row gap-1 h-full py-10 justify-items-center">
         {containerData()}
       </div>
   );

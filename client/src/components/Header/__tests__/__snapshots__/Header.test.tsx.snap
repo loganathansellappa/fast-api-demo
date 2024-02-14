@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders Header component 1`] = `
+<div
+  class="flex"
+>
+  <h1
+    class="bg-gray-100 text-black font-bold py-2 px-4 rounded"
+  >
+    Flight Mission Control
+  </h1>
+  <button
+    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded ml-auto"
+  >
+    Add Mission Control
+  </button>
+</div>
+`;

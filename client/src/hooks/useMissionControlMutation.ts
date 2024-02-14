@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { missionControlKeys } from '../services/queryKeyFactory.ts';
 import { MissionState, MutationType } from '../utils/HelperUtils.ts';
 
-type MissionControlMutation = {
+export type MissionControlMutation = {
   missionState?: MissionState;
   mutationType: MutationType;
   url: string;
@@ -15,8 +15,16 @@ export type MissionControlInput = {
   mutationType: MutationType;
   id?: number;
   missionState?: MissionState;
+  mission_state?: MissionState;
   description?: string;
   title?: string;
+};
+
+type RequestData = {
+  url: string;
+  method: MutationType;
+  mission_state?: MissionState;
+  data?: Record<string, unknown>;
 };
 
 export function useMissionControlUpdate() {
@@ -26,12 +34,12 @@ export function useMissionControlUpdate() {
   const mutation = useMutation({
     mutationFn: (requestData: MissionControlMutation) => {
       const { url, mutationType, missionState, ...data } = requestData;
-      const requestObject = {
+      const requestObject: RequestData = {
           url: url,
           method: mutationType
       }
       if (mutationType !== MutationType.DELETE) {
-        requestObject.data = {
+        requestObject.data  = {
           ...data,
           mission_state: missionState
         }

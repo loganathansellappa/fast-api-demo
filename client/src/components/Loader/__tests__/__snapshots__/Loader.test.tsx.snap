@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Loader component 1`] = `
+<div
+  class="flex flex-col items-center justify-center h-screen"
+>
+  <h1
+    class="text-2xl font-bold mb-4"
+  >
+    Request is processing!
+  </h1>
+</div>
+`;

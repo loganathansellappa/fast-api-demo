@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Loader component 1`] = `
+<div
+  class="flex flex-col items-center justify-center h-screen"
+>
+  <h1
+    class="text-2xl font-bold mb-4"
+  >
+    Something went wrong!
+  </h1>
+  <button
+    class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+  >
+    Reload Page
+  </button>
+</div>
+`;

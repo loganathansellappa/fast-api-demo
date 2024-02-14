@@ -1,12 +1,6 @@
 import { useDialogContext } from '../../context/DialogContext.ts';
 import { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-
-// interface DialogProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   children: React.ReactNode;
-// }
 export const Dialog= () => {
   const { dialog, setDialog } = useDialogContext();
   const { isOpen, content, title } = dialog;

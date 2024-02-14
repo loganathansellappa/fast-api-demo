@@ -5,12 +5,12 @@ import { useDialogContext } from '../../context/DialogContext.ts';
 import { useCallback } from 'react';
 import { DeleteMissionControl } from '../DeleteMissionControl/DeleteMissionControl.tsx';
 
-interface MissionControlCardProps {
+export type MissionControlCardContainerProps = {
   missionControl: MissionControlSchema[];
   title: MissionState;
 }
 
-export const MissionControlCardContainer = ({ missionControl, title }: MissionControlCardProps) => {
+export const MissionControlCardContainer = ({ missionControl, title }: MissionControlCardContainerProps) => {
 
   const { setDialog } = useDialogContext();
 
@@ -30,7 +30,7 @@ export const MissionControlCardContainer = ({ missionControl, title }: MissionCo
       title: 'DELETE - Mission',
       content: <DeleteMissionControl id={id} onCancel={closeDialog}  />
     });
-  }, [setDialog]);
+  }, [setDialog, closeDialog]);
 
   const borderColor =
     title === MissionState.PreFlight ? 'orange' : title === MissionState.PostFlight ? 'green' : 'blue'
