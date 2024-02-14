@@ -1,13 +1,35 @@
-# Volocopter Code Challenge
+==============================
 
-Our intent with this repo is to save you time when doing our code challenge. Here, you'll find a complete setup with front end and back end.
+# The React+Typescript+FastApi
 
-## IMPORTANT
+## Tech
 
-1. Usage of this repository's code is **not** at all mandatory for the completion of our code challenge.
-2. **If you decide to use this repo** for your code challenge's response, feel free to change **anything** you want in it. Make it your own!
+### Front end
+- Node
+- Yarn
+- React
+- Typescript
+- Vite
+- Jest
 
-## Run the app locally
+### Backend
+- Fast API
+- SQLachemy ORM
+- Pydantic
+- OpenAPI
+
+### Database
+- Mysql
+
+## Available Features
+
+| Feature                                                   |
+|-----------------------------------------------------------|
+| List Mission Contorl                                      |
+| Move Mission Contorl between differen states              |
+| Delete Mission Contorl                                    | 
+
+
 
 ### Pre-requisites
 
@@ -17,7 +39,38 @@ In order to run this repo locally, you will need to have the following dependenc
 - Python (v3.12)
 - Node
 
-### Setup
+## Run the app locally
+
+## Installation
+#### Run server and client separately in local machine
+Install the dependencies and devDependencies and configure the database url.
+
+### Backend
+```sh
+cd server/src
+pip3 install -r ../requirements.txt
+uvicorn main:app --host YOUR_HOST --port YOUR_PORT --reload
+```
+### Front end
+```sh
+cd client
+yarn install
+yarn dev
+```
+
+## Running Unit tests
+### Backend
+```sh
+cd server/src
+pytest
+```
+### Front end
+```sh
+cd client
+yarn test
+```
+
+### Setup using docker
 
 First, make sure that the port for the `proxy` service (port `8080`) is free in case you already have other Docker containers running. You can also update it in [`docker-compose.yml`](./docker-compose.yml), if you prefer.
 
@@ -41,18 +94,12 @@ alternatively, you can directly use:
 
     In the terminal, navigate to the `/server` directory, and run:
 
-          uvicorn src.main:app --host YOUR_HOST --port YOUR_PORT --reload
+          uvicorn main:app --host YOUR_HOST --port YOUR_PORT --reload
 
 - Client
 
     In the terminal, navigate to the `/client` directory, and run:
 
           yarn dev
-
-#### Last considerations
-
-We recommend using a Python virtual environment and using VSCode as your IDE for a better development experience.
-
-### UI Designs
-
-For convenience, the designs from the challenge are also here in this repo, at the [`ui-designs`](./ui-designs/) folder.
+## Demo
+[Demo Video](./DemoVideo/DemoVideo.mp4)

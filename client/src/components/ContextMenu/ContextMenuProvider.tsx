@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { ContextMenu } from "./ContextMenu";
-import { MissionState, MutationType, showErrorToast, showSuccessToast } from '../../utils/HelperUtils.ts';
+import { MissionState, MutationType } from '../../utils/HelperUtils.ts';
 import { MissionControlInput, useMissionControlUpdate } from '../../hooks/useMissionControlMutation.ts';
 export interface ContextMenuProviderProps {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ export const ContextMenuProvider: React.FC<ContextMenuProviderProps> = ({
                                                                           children,
                                                                           options,
                                                                         }) => {
+
   const [contextMenu, setContextMenu] = useState<{
     show: boolean;
     top: number;
@@ -22,7 +23,7 @@ export const ContextMenuProvider: React.FC<ContextMenuProviderProps> = ({
     left: 0,
     item: 0,
   });
-  const {  mutate, isError, isSuccess} = useMissionControlUpdate();
+  const {  mutate} = useMissionControlUpdate();
 
 
   const handleClick = useCallback((currentItem: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -35,15 +36,6 @@ export const ContextMenuProvider: React.FC<ContextMenuProviderProps> = ({
     }
     mutate(requestData);
   },[mutate])
-
-
-  if(isError) {
-    showErrorToast('Mission Control state update failed', `missionControlStateUpdateFailed$`);
-  }
-
-  if(isSuccess) {
-    showSuccessToast('Mission Control state updated', `missionControlStateUpdateSuccess`);
-  }
 
   const menuOptions = useMemo(() => Object.values(options).map(state => state),[options]);
   const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {

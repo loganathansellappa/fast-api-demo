@@ -40,19 +40,21 @@ services:
             DATABASE_URL: mysql+pymysql://root:root_password@mysqldb:3306/mission_control
 
     client:
-        build: client/
         container_name: client
+        build: client/
         volumes:
             - ./client/src:/client/src
             - ./client/vite.config.ts:/client/vite.config.ts
         ports:
-            - 3000:3000
+          - "3000:3000"
         expose:
-            - 3000
+          - "3000"
         networks:
             - back-tier
         depends_on:
             - server
+        environment:
+            DATA_URL: http://server:9000
 
     proxy:
         container_name: proxy
