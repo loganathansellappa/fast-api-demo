@@ -1,5 +1,8 @@
 ==============================
+ This is a simple CRUD application created as a learning project using python fast-api
 
+# 
+#
 # The React+Typescript+FastApi
 
 ## Tech
